@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="MyList.UWP.Views.Procurar.ProcurarMainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList.UWP.Views.Procurar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+
+        <Button x:Name="BtnSerieSearch"
+                                Margin="0,417,0,0" Click="BtnSerieSearch_Click" Height="55" Width="117" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Slideshow" Margin="5"/>
+                <TextBlock Text="SÉRIES" Height="22" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="BtnFilmeSearch"
+                                Margin="0,516,0,0" Click="BtnFilmeSearch_Click" Height="56" Width="118" VerticalAlignment="Top" HorizontalAlignment="Center" >
+            <StackPanel Orientation="Horizontal">
+                <SymbolIcon Symbol="Video" RenderTransformOrigin="-0.075,0.55" Margin="5" />
+                <TextBlock Text="FILMES" Height="22" Width="54" />
+            </StackPanel>
+        </Button>
+
+    </Grid>
+</Page>

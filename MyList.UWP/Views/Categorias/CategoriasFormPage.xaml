@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="MyList.UWP.Views.Categorias.CategoriasFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList.UWP.Views.Categorias"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Padding="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Adicionar/Editar Categoria "  FontFamily="Comic Sans MS"
+                       Style="{StaticResource HeaderTextBlockStyle}"/>
+            <CommandBar x:Name="CbMain"
+                        Grid.Column="1" 
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+
+                <AppBarButton x:Name="BtnSave" 
+                              Icon="Save"
+                              Label="Guardar"
+                              IsEnabled="{x:Bind CategoriaViewModel.Valid, Mode=OneWay}"
+                              ToolTipService.ToolTip="Guardar Item"
+                              Click="BtnSave_Click">
+
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <StackPanel>
+                                <Border Background="Red" Padding="10">
+                                    <TextBlock Text="Categoria já existe. Não pode guardá-la!"
+                                           Foreground="White" />
+                                </Border>
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </AppBarButton>
+                <AppBarButton x:Name="BtnCancel" Icon="Cancel"
+                              Label=" Cancelar"
+                              ToolTipService.ToolTip="Cancelar Item"
+                              Click="BtnCancel_Click"/>
+            </CommandBar>
+
+        </Grid>
+
+        <StackPanel Grid.Row="1">
+            <TextBox x:Name ="name" Header="Nome"
+                     Text="{x:Bind CategoriaViewModel.CategoriaNome, Mode=TwoWay, 
+                            UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Category Name -->
+            <Border Background="red" 
+                    BorderBrush="Black" 
+                    BorderThickness="2" 
+                    Margin="5"
+                    Visibility="{x:Bind CategoriaViewModel.Invalid, Mode=OneWay}">
+
+                <TextBlock Text="Categoria Inválida" Foreground="White"/>
+
+            </Border>
+
+        </StackPanel>
+
+    </Grid>
+</Page>

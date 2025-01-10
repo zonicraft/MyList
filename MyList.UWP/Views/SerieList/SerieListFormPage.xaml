@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="MyList.UWP.Views.SerieList.SerieListFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList.UWP.Views.SerieList"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+
+        </Grid.RowDefinitions>
+        <Grid Padding="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Adicionar/Editar Lista de Séries" FontFamily="Comic Sans MS"
+                       Style="{StaticResource HeaderTextBlockStyle}" />
+
+            <CommandBar x:Name="CbMain" Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+                <!--BtnSave-->
+                <AppBarButton x:Name="BtnSave"
+                              Icon="Save"
+                              Label="Guardar"
+                              ToolTipService.ToolTip="Guardar a lista de Séries"
+                              Click="BtnSave_Click" >
+                    <Flyout.AttachedFlyout>
+                        <Flyout>
+                            <Border Background="Red" Padding="10">
+                                <TextBlock Text="Lista de filmes já exise, não é possível guardá-la!"
+                                           Foreground="White"/>
+                            </Border>
+                        </Flyout>
+                    </Flyout.AttachedFlyout>
+                </AppBarButton>
+                <!--BtnCancel-->
+                <AppBarButton x:Name="BtnCancel"
+                              Icon="Cancel"
+                              Label="Cancelar"
+                              ToolTipService.ToolTip="Cancelar"
+                              Click="BtnCancel_Click" >
+                </AppBarButton>
+            </CommandBar>
+        </Grid>
+
+        <StackPanel Grid.Row="1" Width="460" Margin="0,70">
+            <TextBox Header="Nome" x:Name="name"
+                     Text="{x:Bind SerieListViewModel.SerieList.Nome,
+                        Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="Cor" Margin="0, 10, 0,0"/>
+
+            <ColorPicker x:Name="CPicker"
+                         Width="300" IsColorChannelTextInputVisible="False"
+                         IsAlphaEnabled="False"
+                         IsColorPreviewVisible="False"
+                         IsAlphaTextInputVisible="False"
+                         IsAlphaSliderVisible="False"
+                         Color="{x:Bind SerieListViewModel.SerieListColor,
+                             Mode=TwoWay}"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,72 @@
+﻿<Page
+    x:Class="MyList.UWP.Views.Série.SerieAddToFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList.UWP.Views.Série"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions >
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Padding="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Adicione uma Série à MyList"  FontFamily="Comic Sans MS"
+                       Style="{StaticResource HeaderTextBlockStyle}"/>
+            <CommandBar Grid.Column="1" VerticalAlignment="Center"
+                        x:Name="CbMain" Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+
+                <!-- Button Save-->
+                <AppBarButton x:Name="BtnSave"
+                              Icon = "Save"
+                              Label="Guardar"
+                              IsEnabled="{x:Bind SerieViewModel.Valid, Mode=OneWay}"
+                              ToolTipService.ToolTip="Guardar Série"
+                              Click= "BtnSave_Click">
+
+                </AppBarButton>
+                <!--Button Cancel-->
+                <AppBarButton x:Name= "BtnCancel"
+                              Icon="Cancel"
+                              Label="Cancelar"
+                              ToolTipService.ToolTip="Cancelar Operação"
+                              Click="BtnCancel_Click"/>
+            </CommandBar>
+        </Grid>
+
+        <StackPanel Grid.Row="1">
+            <AutoSuggestBox x:Name="AsbCategoria"
+                                Header="Categoria"
+                                QueryIcon="Find"
+                                DisplayMemberPath="Nome"
+                                Text="{x:Bind SerieViewModel.CategoriaNome,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextChanged = "AsbCategoria_TextChanged"
+                                QuerySubmitted="AsbCategoria_QuerySubmitted"
+                                SuggestionChosen = "AsbCategoria_SuggestionChosen" />
+
+            <AutoSuggestBox x:Name="AsbSerie"
+                                Header="Série"
+                                QueryIcon="Find"
+                                DisplayMemberPath="Titulo"
+                                Text="{x:Bind SerieViewModel.SerieNome,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextChanged = "AsbSerie_TextChanged"
+                                QuerySubmitted="AsbSerie_QuerySubmitted"
+                                SuggestionChosen = "AsbSerie_SuggestionChosen" />
+
+            <Border Background="Red" BorderBrush="Black" BorderThickness="2"
+                        Margin="5" Visibility="{x:Bind SerieViewModel.Invalid, Mode=OneWay}">
+                <TextBlock Text="Série Inválida"/>
+            </Border>
+        </StackPanel>
+
+    </Grid>
+</Page>

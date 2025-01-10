@@ -1,0 +1,106 @@
+﻿<Page
+    x:Class="MyList.UWP.Views.Filmes.FilmeFormPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MyList.UWP.Views.Filmes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid  Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid  Padding="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Adicionar/Editar Filme"  FontFamily="Comic Sans MS" 
+                       Style="{StaticResource HeaderTextBlockStyle}"/>
+            <CommandBar Grid.Column="1" VerticalAlignment="Center"
+                        x:Name="CbMain" Background="Transparent"
+                        OverflowButtonVisibility="Collapsed"
+                        DefaultLabelPosition="Right">
+                <!-- Button Save-->
+                <AppBarButton x:Name="BtnSave"
+                              Icon = "Save"
+                              Label="Guardar"
+                              IsEnabled="{x:Bind FilmeViewModel.Valid, Mode=OneWay}"
+                              ToolTipService.ToolTip="Guardar Filme"
+                              Click= "BtnSave_Click">
+
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout>
+                            <Border Background="Red" Padding="10">
+                                <TextBlock Text="Filme já existe. Não é possível adicioná-lo!"
+                                           Foreground="White"/>
+                            </Border>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </AppBarButton>
+                <!--Button Cancel-->
+                <AppBarButton x:Name= "BtnCancel"
+                              Icon="Cancel"
+                              Label="Cancelar"
+                              ToolTipService.ToolTip="Cancelar Operação"
+                              Click="BtnCancel_Click"/>
+            </CommandBar>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <AutoSuggestBox x:Name="AsbCategory"
+                                Header="Categoria"
+                                QueryIcon="Find"
+                                DisplayMemberPath="Nome"
+                                Text="{x:Bind FilmeViewModel.CategoriaNome,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                TextChanged = "AsbCategory_TextChanged"
+                                QuerySubmitted="AsbCategory_QuerySubmitted"
+                                SuggestionChosen = "AsbCategory_SuggestionChosen" />
+                
+                <!-- Titulo-->
+                <TextBox x:Name="BtnName" Header="Titulo"
+                         Text="{x:Bind FilmeViewModel.FilmeNome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Ano-->
+                <TextBox x:Name="BtnYear" Header="Ano de lançamento"
+                         Text="{x:Bind FilmeViewModel.FilmeAno, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Realizador-->
+                <TextBox x:Name="BtnRealizador" Header="Realizador"
+                         Text="{x:Bind FilmeViewModel.FilmeRealizador, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Produtora-->
+                <TextBox x:Name="BtnProdutora" Header="Produtora"
+                         Text="{x:Bind FilmeViewModel.FilmeProdutora, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Pg-->
+                <TextBox x:Name="BtnPg" Header="PG_Rating"
+                         Text="{x:Bind FilmeViewModel.FilmePg, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Sinopse-->
+                <TextBox x:Name="BtnSinopse" Header="Sinopse"
+                         Text="{x:Bind FilmeViewModel.FilmeSinopse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <!-- Cartaz-->
+                <Image x:Name= "thumb" Margin="0, 10" MaxHeight=" 600"
+                       Source="{x:Bind FilmeViewModel.Thumb,Converter={StaticResource bytesToImageConverter}, Mode=OneWay}"/>
+                
+                
+                
+                <Button x:Name="BtnChooseThumb" Margin="0, 10"
+                        Content="Escolher o cartaz"  Tapped="BtnChooseThumb_Tapped"/>
+                
+                <Border Background="Red" BorderBrush="Black" BorderThickness="2"
+                        Margin="5" Visibility="{x:Bind FilmeViewModel.Invalid, Mode=OneWay}">
+                    <TextBlock Text="Filme Inválido"/>
+                    
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Page>
